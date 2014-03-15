@@ -1,18 +1,65 @@
 \documentclass[headrule,footrule,landscape,a4paper,25pt]{foils}
 
 \title{整数問題プログラムの \\ メニーコアアーキテクチャにおける最適化}
+\date{2014年3月17日}
 \author{並木中等教育学校4年次 杉崎行優 \\ (チーム名:ARARAT)}
 
 \begin{document}
 \MyLogo{}
 \maketitle
 
-\foilhead{はじめに}
-\MyLogo{整数問題プログラムのメニーコアアーキテクチャにおける最適化 \hfill 並木中等教育学校4年次 杉崎行優}
-蓋然性に乏しい
-bbb
+\foilhead{プロジェクトの概要}
+ \MyLogo{整数問題プログラムのメニーコアアーキテクチャにおける最適化 \hfill ARARAT \hfill 並木中等教育学校4年次 杉崎行優}
+ \begin{itemize}
+  \item メニーコアアーキテクチャでの大規模並列処理と、木探索問題の並列処理を組み合わせた並列処理研究
+  \begin{itemize}
+   \item 複数ノードの数千コアでの並列処理における処理分散・通信の最適化
+   \item Xeon Phi の性能は倍精度演算で表されており、整数演算の性能が理想的に出るかは不明
+  \end{itemize}
+ \end{itemize}
 
-\foilhead{foilhead title 2}
-bbb cccc
+\foilhead{プロジェクトの計画(1)}
+ \begin{itemize}
+  \item 整数問題プログラムとして、平成25年度のT2K-Tsukuba学際利用で開発・並列化したn次魔方陣全解プログラムをベースに改良
+  \begin{itemize}
+   \item 並列方式はmaster-worker
+   \item 通信の頻度・データサイズや各ワーカーの問題の粒度を比較的自由に変更可能
+   \item 出力結果の成否判定が容易
+  \end{itemize}
+  \item 中間報告会までにはXeon Phi化し、それ以降に細かなチューニングや性能測定
+ \end{itemize}
+
+\foilhead{魔方陣について}
+ \begin{itemize}
+  \item 縦$n$横$n$のマスに$1$から$n^2$の数が$1$つずつ入れられており、
+        縦の$n$列、横の$n$列、斜めの$2$列のそれぞれの数字の合計が全て等しく$L$(式\ref{eqn:l-of-ms})となるもの
+ \end{itemize}
+ \begin{equation} \label{eqn:l-of-ms}
+  L=\frac{1}{n} \sum_{i=1}^{n^2}i = \frac{1}{2} n(n^2+1)
+ \end{equation}
+
+\foilhead{魔方陣の例($n=5$; $L=65$)}
+ {\Large
+  \begin{center}
+   \begin{tabular}{|c|c|c|c|c|}
+    \hline
+    1 & 23 & 15 & 24 & 2 \\\hline
+    19 & 3 & 17 & 4 & 22 \\\hline
+    14 & 12 & 20 & 10 & 9 \\\hline
+    13 & 21 & 8 & 16 & 7 \\\hline
+    18 & 6 & 5 & 11 & 25 \\\hline
+   \end{tabular}
+  \end{center}
+ }
+
+\foilhead{プロジェクトの計画(2)}
+ \begin{itemize}
+  \item 開発 $\Rightarrow$ 実行のプロセスを数十回繰り返すと仮定
+  \begin{itemize}
+   \item 1回の並列実行は2時間程度であると予想
+   \item 希望計算時間を600時間に変更
+  \end{itemize}
+  \item 他の整数問題への適用を目指す
+ \end{itemize}
 
 \end{document}
