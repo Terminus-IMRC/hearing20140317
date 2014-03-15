@@ -1,4 +1,4 @@
-all: hearing26.dvi
+all: view
 
 hearing26.dvi: hearing26.tex
 	latexmk -latex=platex -dvi $<
@@ -13,3 +13,6 @@ clean:
 
 mail: hearing26.pdf
 	echo q | metome.py -a $<
+
+view: hearing26.pdf
+	mupdf $<
